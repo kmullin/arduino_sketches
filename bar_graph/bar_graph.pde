@@ -28,7 +28,7 @@ void blinkie(int wait)
 
 void delay_new(int wait)
 {
-  delay(getLevel() * 35);
+  delay(getLevel() * 25);
 }
 
 void up(int wait, int on)
@@ -105,7 +105,9 @@ void graph(int level)
 void loop()
 {
   // graph(getLevel());
-  //  knightrider(1);
-  blinkAll();
+  scroll(1);
+  //bounce(1);
+  //zknightrider(1);
+  //blinkAll();
   //blinkie(50);
 }
