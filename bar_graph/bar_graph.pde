@@ -1,6 +1,6 @@
 
 const int ledCount = 10;
-const int ledPins[] = { 
+const int ledPins[] = {
   2,3,4,5,6,7,8,9,10,11 };
 const int potPin = A5;
 
@@ -9,7 +9,7 @@ const int stall = 1000;
 int lastLvl = 0;
 
 void setup()
-{                
+{
   for (int led = 0; led < ledCount; led++) {
     pinMode(ledPins[led], OUTPUT);
   }
@@ -19,25 +19,23 @@ void setup()
 
 void blinkie(int wait)
 {
-  int last = 0;
-  int pin = 0;
-  for (int led = 0; led < ledCount; led++) {
-    do {
-      pin = random(10);
-      Serial.println(pin);
-    } while (pin == last);
-    digitalWrite(pin, HIGH);
-    last = pin;
+  for (int led = 0; led < ledCount * 2; led++) {
+    digitalWrite(ledPins[random(10)], HIGH);
     delay(wait);
   }
-  allOff();
+  all(LOW);
+}
+
+void delay_new(int wait)
+{
+  delay(getLevel() * 35);
 }
 
 void up(int wait, int on)
 {
   for (int led = 0; led < ledCount; led++) {
     digitalWrite(ledPins[led], on);
-    delay(wait);
+    delay_new(wait);
   }
 }
 
@@ -45,7 +43,7 @@ void down(int wait, int on)
 {
   for (int x = ledCount-1; x >= 0; x--) {
     digitalWrite(ledPins[x], on);
-    delay(wait);
+    delay_new(wait);
   }
 }
 
@@ -72,14 +70,24 @@ void knightrider(int wait)
 int getLevel()
 {
   int reading = analogRead(potPin);
-  return map(reading, 0, 1023, 0, ledCount);
+  return map(reading, 0, 1023, 1, ledCount);
 }
 
-void allOff()
+void all(int on)
 {
   for (int thisLed = 0; thisLed < ledCount; thisLed++) {
-    digitalWrite(ledPins[thisLed], LOW);
+
+    digitalWrite(ledPins[thisLed], on);
   }
+}
+
+void blinkAll()
+{
+  int stall = 500;
+  all(HIGH);
+  delay(stall);
+  all(LOW);;
+  delay(stall);
 }
 
 void graph(int level)
@@ -96,16 +104,8 @@ void graph(int level)
 
 void loop()
 {
-  // int ledLevel = getLevel();
-
-  // graph(ledLevel);
-  // lastLvl = ledLevel;
-  knightrider(getLevel() *10);
-  
+  // graph(getLevel());
+  //  knightrider(1);
+  blinkAll();
+  //blinkie(50);
 }
-
-
-
-
-
-
