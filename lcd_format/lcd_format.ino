@@ -1,6 +1,7 @@
 #include <LiquidCrystal.h>
 
-/*#include <stdarg.h>
+/* for printf to serial
+#include <stdarg.h>
  void p(char *fmt, ... ){
  char tmp[128]; // resulting string limited to 128 chars
  va_list args;
@@ -8,7 +9,9 @@
  vsnprintf(tmp, 128, fmt, args);
  va_end (args);
  Serial.print(tmp);
- }*/
+ }
+*/
+
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
@@ -53,13 +56,3 @@ void loop()
 {
   // just loop
 }
-
-
-
-
-
-
-
-
-
-
